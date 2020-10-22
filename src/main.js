@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
+import vSelect from 'vue-select'
 import Paginate from 'vuejs-paginate'
 import VueMeta from 'vue-meta'
 import App from './App.vue'
@@ -14,6 +15,7 @@ import titlePlugin from '@/utils/title.plugin'
 import Loader from '@/components/app/Loader'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
+
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -31,6 +33,7 @@ Vue.filter('currency', currencyFilter)
 Vue.directive('tooltip', tooltipDirective)
 Vue.component('Loader', Loader)
 Vue.component('Paginate', Paginate)
+Vue.component('v-select', vSelect)
 
 firebase.initializeApp({
   apiKey: 'AIzaSyC40OAMvw4z7ndNRYw7ItotxkPvuE_IOCE',
