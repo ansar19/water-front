@@ -33,12 +33,12 @@ Vue.component('Loader', Loader)
 Vue.component('Paginate', Paginate)
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyDAPqALfM3xjg7II0tjg7GL6s73mKXRxEs',
-  authDomain: 'vue-crm-e3928.firebaseapp.com',
-  databaseURL: 'https://vue-crm-e3928.firebaseio.com',
-  projectId: 'vue-crm-e3928',
-  storageBucket: 'vue-crm-e3928.appspot.com',
-  messagingSenderId: '251307374581'
+  apiKey: 'AIzaSyC40OAMvw4z7ndNRYw7ItotxkPvuE_IOCE',
+  authDomain: 'ecomarinewtn.firebaseapp.com',
+  databaseURL: 'https://ecomarinewtn.firebaseio.com',
+  projectId: 'ecomarinewtn',
+  storageBucket: 'ecomarinewtn.appspot.com',
+  messagingSenderId: '753747716191'
 })
 
 let app
