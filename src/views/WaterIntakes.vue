@@ -51,7 +51,7 @@ export default {
     updateWaterIntake(waterIntake) {
       const idx = this.waterIntakes.findIndex(wi => wi.id === waterIntake.id)
       this.waterIntakes[idx].title = waterIntake.title
-      this.waterIntakes[idx].limit = waterIntake.limit
+      this.waterIntakes[idx].waterBodyCodeAndType = waterIntake.waterBodyCodeAndType
       this.updateCount++
     }
   }

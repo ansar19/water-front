@@ -23,7 +23,6 @@
               <p>{{'Amount'|localize}}: {{record.amount }}</p>
               <p>{{'Category'|localize}}: {{record.categoryName}}</p>
               <p>{{'WaterIntake'|localize}}: {{record.waterIntakeName}}</p>
-
               <small>{{record.date | date('datetime')}}</small>
             </div>
           </div>

@@ -5,6 +5,7 @@ import info from './info'
 import category from './category'
 import record from './record'
 import waterIntake from './waterIntake'
+import waterConsumer from './waterConsumer'
 
 Vue.use(Vuex)
 
@@ -31,6 +32,6 @@ export default new Vuex.Store({
     error: s => s.error
   },
   modules: {
-    auth, info, category, record, waterIntake
+    auth, info, category, record, waterIntake, waterConsumer
   }
 })

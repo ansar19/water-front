@@ -165,7 +165,7 @@ export default {
         )
       }
     },
-    // add in input filed if needed: @keypress="only3Digits"
+    // add in input filed if needed: @keypress="only3Digits", note keypress deprecated - replace with suitable
     // only3Digits($event) {
     //   // console.log($event.keyCode); //keyCodes value
     //   let keyCode = ($event.keyCode ? $event.keyCode : $event.which);

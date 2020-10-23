@@ -39,6 +39,12 @@ const router = new Router({
       component: () => import('./views/WaterIntakes.vue')
     },
     {
+      path: '/waterconsumers',
+      name: 'waterconsumers',
+      meta: {layout: 'main', auth: true},
+      component: () => import('./views/WaterConsumers.vue')
+    },
+    {
       path: '/detail/:id',
       name: 'detail',
       meta: {layout: 'main', auth: true},
