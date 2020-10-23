@@ -12,6 +12,14 @@
     </p>
 
     <form class="form" v-else @submit.prevent="handleSubmit">
+
+      <div class="input-field">
+          <select ref="waterIntake" v-model="waterIntake">
+            <option v-for="wi of waterIntakes" :key="wi.id" :value="wi.id">{{wi.title}}</option>
+          </select>
+          <label>{{'SelectWaterIntake'|localize}}</label>
+        </div>
+
       <div class="input-field">
         <select ref="select" v-model="category">
           <option v-for="c in categories" :key="c.id" :value="c.id">{{c.title}}</option>
@@ -34,18 +42,13 @@
       </p>
 
       <div class="input-field">
-        <input
-          id="amount"
-          type="number"
-          v-model.number="amount"
-          :class="{invalid: $v.amount.$dirty && !$v.amount.minValue}"
-        >
-        <label for="amount">{{'Amount'|localize}}</label>
-        <span
-          v-if="$v.amount.$dirty && !$v.amount.minValue"
-          class="helper-text invalid"
-        >{{'Message_MinLength'|localize}} {{$v.amount.$params.minValue.min}}</span>
+        <input id="amount" type="text" v-model.number="amount" 
+          :class="{invalid: $v.amount.$dirty && !$v.amount.$decimal &&!!$v.amount.minValue}" />
+        <span v-if="$v.amount.$dirty &&  !$v.amount.$decimal && !$v.amount.$minValue"
+          class="helper-text invalid">{{'Message_MinLength'|localize}} {{$v.amount.$params.minValue.min}}</span>
       </div>
+
+      
 
       <div class="input-field">
         <input
@@ -70,9 +73,10 @@
 </template>
 
 <script>
-import { required, minValue } from 'vuelidate/lib/validators'
+import { required, minValue, decimal } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import localizeFilter from '@/filters/localize.filter'
+import 'vue-select/dist/vue-select.css';
 export default {
   name: 'record',
   metaInfo() {
@@ -86,23 +90,31 @@ export default {
     categories: [],
     category: null,
     type: 'outcome',
-    amount: 1,
-    description: ''
+    amount: 0.001,
+    description: '',
+    waterIntake: null,
+    waterIntakes: []
   }),
   validations: {
-    amount: { minValue: minValue(1) },
+    amount: { required, minValue: minValue(0.001), decimal },
     description: { required }
   },
   async mounted() {
     this.categories = await this.$store.dispatch('fetchCategories')
+    this.waterIntakes = await this.$store.dispatch('fetchWaterIntakes')
     this.loading = false
 
     if (this.categories.length) {
       this.category = this.categories[0].id
     }
 
+    if (this.waterIntakes.length) {
+      this.waterIntake = this.waterIntakes[0].id
+    }
+
     setTimeout(() => {
       this.select = M.FormSelect.init(this.$refs.select)
+      this.waterIntake = M.FormSelect.init(this.$refs.waterIntake)
       M.updateTextFields()
     }, 0)
   },
@@ -127,20 +139,23 @@ export default {
         try {
           await this.$store.dispatch('createRecord', {
             categoryId: this.category,
+            waterIntakeId: this.waterIntake,
             amount: this.amount,
             description: this.description,
             type: this.type,
             date: new Date().toJSON()
           })
           const bill =
-            this.type === 'income'
-              ? this.info.bill + this.amount
-              : this.info.bill - this.amount
+            this.type === 'income' ?
+            this.info.bill + this.amount :
+            this.info.bill - this.amount
 
-          await this.$store.dispatch('updateInfo', { bill })
+          await this.$store.dispatch('updateInfo', {
+            bill
+          })
           this.$message(localizeFilter('RecordHasBeenCreated'))
           this.$v.$reset()
-          this.amount = 1
+          this.amount = 0.001
           this.description = ''
         } catch (e) {}
       } else {
@@ -149,11 +164,27 @@ export default {
             this.info.bill})`
         )
       }
-    }
+    },
+    // add in input filed if needed: @keypress="only3Digits"
+    // only3Digits($event) {
+    //   // console.log($event.keyCode); //keyCodes value
+    //   let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+    //   // only allow number and one dot
+    //   if ((keyCode < 48 || keyCode > 57) && (keyCode !== 46 || this.amount.indexOf('.') != -1)) { // 46 is dot
+    //     $event.preventDefault();
+    //   }
+    //   // restrict to 3 decimal places
+    //   if (this.amount != null && this.amount.indexOf(".") > -1 && (this.amount.split('.')[1].length > 2)) {
+    //     $event.preventDefault();
+    //   }
+    // }
   },
   destroyed() {
     if (this.select && this.select.destroy) {
       this.select.destroy()
+    }
+    if (this.waterIntake && this.waterIntake.destroy) {
+      this.waterIntake.destroy()
     }
   }
 }

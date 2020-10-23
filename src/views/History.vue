@@ -53,13 +53,14 @@ export default {
   async mounted() {
     this.records = await this.$store.dispatch('fetchRecords')
     const categoires = await this.$store.dispatch('fetchCategories')
+    const waterIntakes = await this.$store.dispatch('fetchWaterIntakes')
 
-    this.setup(categoires)
-
+    this.setup(categoires, waterIntakes)
+    
     this.loading = false
   },
   methods: {
-    setup(categoires) {
+    setup(categoires, waterIntakes) {
       this.setupPagination(
         this.records.map(record => {
           return {
@@ -67,6 +68,7 @@ export default {
             categoryName: categoires.find(c => c.id === record.categoryId)
               .title,
             typeClass: record.type === 'income' ? 'green' : 'red',
+            waterBody: waterIntakes.find(wi => wi.id === record.waterIntakeId),
             typeText:
               record.type === 'income'
                 ? localizeFilter('Income')

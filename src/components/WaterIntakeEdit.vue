@@ -14,17 +14,10 @@
         </div>
 
         <div class="input-field">
-          <input
-            id="name-edit"
-            type="text"
-            v-model="title"
-            :class="{invalid: $v.title.$dirty && !$v.title.required}"
-          >
+          <input id="name-edit" type="text" v-model="title" :class="{invalid: $v.title.$dirty && !$v.title.required}">
           <label for="name-edit">{{'Title'|localize}}</label>
-          <span
-            v-if="$v.title.$dirty && !$v.title.required"
-            class="helper-text invalid"
-          >{{'Message_WaterIntakeTitle'|localize}}</span>
+          <span v-if="$v.title.$dirty && !$v.title.required"
+            class="helper-text invalid">{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
         <div class="input-field">
@@ -50,6 +43,7 @@
 <script>
 import { required, minValue } from 'vuelidate/lib/validators'
 import localizeFilter from '@/filters/localize.filter'
+import 'vue-select/dist/vue-select.css';
 export default {
   props: {
     waterIntakes: {

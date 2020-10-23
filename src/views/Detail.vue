@@ -20,7 +20,7 @@
           >
             <div class="card-content white-text">
               <p>{{'Description'|localize}}: {{record.description}}</p>
-              <p>{{'Amount'|localize}}: {{record.amount | currency}}</p>
+              <p>{{'Amount'|localize}}: {{record.amount }}</p>
               <p>{{'Category'|localize}}: {{record.categoryName}}</p>
 
               <small>{{record.date | date('datetime')}}</small>

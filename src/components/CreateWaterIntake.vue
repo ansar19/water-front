@@ -7,44 +7,21 @@
 
       <form @submit.prevent="submitHandler">
         <div class="input-field">
-          <input
-            id="name"
-            type="text"
-            v-model="title"
-            :class="{invalid: $v.title.$dirty && !$v.title.required}"
-          >
+          <input id="name" type="text" v-model="title" :class="{invalid: $v.title.$dirty && !$v.title.required}">
           <label for="name">{{'Title'|localize}}</label>
-          <span
-            v-if="$v.title.$dirty && !$v.title.required"
-            class="helper-text invalid"
-          >{{'Message_WaterIntakeTitle'|localize}}</span>
+          <span v-if="$v.title.$dirty && !$v.title.required"
+            class="helper-text invalid">{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
-        <!-- <div class="input-field">
-          <input
-            id="water-body-code-and-type"
-            type="text"
-            v-model="waterBodyCodeAndType"
-            :class="{invalid: $v.waterBodyCodeAndType.$dirty && !$v.waterBodyCodeAndType.required}"
-          >
-          <label for="water-body-code-and-type">{{'Water_Body_Code_And_Type'|localize}}</label>
-          <span
-            v-if="$v.waterBodyCodeAndType.$dirty && !$v.waterBodyCodeAndType.required"
-            class="helper-text invalid"
-          >{{'Message_CategoryTitle'|localize}}</span>
-        </div> -->
-
         <div class="input-field">
-            <select ref="waterBodyCodeAndType" v-model="waterBodyCodeAndType" class="form-control" id="water-body-code">
-                <option v-for="(option, index) in waterBodyCodeAndTypeOptions" v-bind:value="option" v-bind:key="index">
-                  {{ option.waterBodyName }}
-                </option>
-            </select>
-            <label for="water-body-code">{{'Water_Body_Code_And_Type'|localize}}</label>
-            <span
-            v-if="$v.waterBodyCodeAndType.$dirty && !$v.waterBodyCodeAndType.required"
-            class="helper-text invalid"
-          >{{'Message_WaterIntakeTitle'|localize}}</span>
+          <select ref="waterBodyCodeAndType" v-model="waterBodyCodeAndType" class="form-control" id="water-body-code">
+            <option v-for="(option, index) in waterBodyCodeAndTypeOptions" v-bind:value="option" v-bind:key="index">
+              {{ option.waterBodyName }}
+            </option>
+          </select>
+          <label for="water-body-code">{{'Water_Body_Code_And_Type'|localize}}</label>
+          <span v-if="$v.waterBodyCodeAndType.$dirty && !$v.waterBodyCodeAndType.required"
+            class="helper-text invalid">{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
