@@ -17,7 +17,7 @@
           <span
             v-if="$v.title.$dirty && !$v.title.required"
             class="helper-text invalid"
-          >{{'Message_CategoryTitle'|localize}}</span>
+          >{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
         <!-- <div class="input-field">
@@ -44,7 +44,7 @@
             <span
             v-if="$v.waterBodyCodeAndType.$dirty && !$v.waterBodyCodeAndType.required"
             class="helper-text invalid"
-          >{{'Message_CategoryTitle'|localize}}</span>
+          >{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">

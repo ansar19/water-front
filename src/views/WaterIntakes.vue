@@ -1,20 +1,20 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>{{'Categories'|localize}}</h3>
+      <h3>{{'WaterIntakes'|localize}}</h3>
     </div>
     <section>
       <Loader v-if="loading"/>
       <div class="row" v-else>
         <CreateWaterIntake @created="addNewWaterIntake"/>
 
-        <!-- <WaterIntakeEdit
-          v-if="categories.length"
-          :categories="categories"
-          :key="categories.length + updateCount"
-          @updated="updateCategories"
-        /> -->
-        <!-- <p v-else class="center">{{'NoCategories'|localize}}</p> -->
+        <WaterIntakeEdit
+          v-if="waterIntakes.length"
+          :waterIntakes="waterIntakes"
+          :key="waterIntakes.length + updateCount"
+          @updated="updateWaterIntake"
+        /> 
+        <p v-else class="center">{{'NoCategories'|localize}}</p>
       </div>
     </section>
   </div>

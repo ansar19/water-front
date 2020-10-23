@@ -13,14 +13,14 @@
     <div v-else class="row">
       <HomeBill :rates="currency.rates"/>
 
-      <HomeCurrency :rates="currency.rates" :date="currency.date"/>
+      <!-- <HomeCurrency :rates="currency.rates" :date="currency.date"/> -->
     </div>
   </div>
 </template>
 
 <script>
 import HomeBill from '@/components/HomeBill'
-import HomeCurrency from '@/components/HomeCurrency'
+// import HomeCurrency from '@/components/HomeCurrency'
 
 export default {
   name: 'home',
@@ -46,7 +46,7 @@ export default {
   },
   components: {
     HomeBill,
-    HomeCurrency
+    // HomeCurrency
   }
 }
 </script>
