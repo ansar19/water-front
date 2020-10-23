@@ -45,6 +45,7 @@
   "WaterIntakes": "Водозаборы",
   "WaterConsumer": "Водопотребитель",
   "WaterConsumers": "Водопотребители",
+  "WaterConsumerType": "Тип Водопотребителя",
   "NoCategories": "Категорий пока нет",
   "NoWaterConsumers": "Потребители воды пока не созданы",
   "Type": "Тип",

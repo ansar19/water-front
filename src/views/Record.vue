@@ -27,6 +27,13 @@
         <label>{{'SelectCategory'|localize}}</label>
       </div>
 
+      <div class="input-field">
+          <select ref="waterConsumer" v-model="waterConsumer">
+            <option v-for="wc of waterConsumers" :key="wc.id" :value="wc.id">{{wc.waterConsumerName}}</option>
+          </select>
+          <label>{{'SelectWaterConsumer'|localize}}</label>
+        </div>
+
       <p>
         <label>
           <input class="with-gap" name="type" type="radio" value="income" v-model="type">
@@ -47,8 +54,6 @@
         <span v-if="$v.amount.$dirty &&  !$v.amount.$decimal && !$v.amount.$minValue"
           class="helper-text invalid">{{'Message_MinLength'|localize}} {{$v.amount.$params.minValue.min}}</span>
       </div>
-
-      
 
       <div class="input-field">
         <input
@@ -88,6 +93,8 @@ export default {
     loading: true,
     select: null,
     categories: [],
+    waterConsumers: [],
+    waterConsumer: null,
     category: null,
     type: 'outcome',
     amount: 0.001,
@@ -102,6 +109,8 @@ export default {
   async mounted() {
     this.categories = await this.$store.dispatch('fetchCategories')
     this.waterIntakes = await this.$store.dispatch('fetchWaterIntakes')
+    this.waterConsumers = await this.$store.dispatch('fetchWaterConsumers')
+
     this.loading = false
 
     if (this.categories.length) {
@@ -112,9 +121,15 @@ export default {
       this.waterIntake = this.waterIntakes[0].id
     }
 
+     if (this.waterConsumers.length) {
+      this.waterConsumer = this.waterConsumers[0].id
+    }
+
     setTimeout(() => {
       this.select = M.FormSelect.init(this.$refs.select)
       this.waterIntake = M.FormSelect.init(this.$refs.waterIntake)
+      this.waterConsumer = M.FormSelect.init(this.$refs.waterConsumer)
+
       M.updateTextFields()
     }, 0)
   },
@@ -140,6 +155,7 @@ export default {
           await this.$store.dispatch('createRecord', {
             categoryId: this.category,
             waterIntakeId: this.waterIntake,
+            waterConsumerId: this.waterConsumer,
             amount: this.amount,
             description: this.description,
             type: this.type,
@@ -185,6 +201,9 @@ export default {
     }
     if (this.waterIntake && this.waterIntake.destroy) {
       this.waterIntake.destroy()
+    }
+    if (this.waterConsumer && this.waterConsumer.destroy) {
+      this.waterConsumer.destroy()
     }
   }
 }

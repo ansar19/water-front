@@ -8,6 +8,9 @@
         <th>{{'Category'|localize}}</th>
         <th>{{'WaterIntake'|localize}}</th>
         <th> {{'Water_Body_Code_And_Type'|localize}}
+        <th> {{'WaterConsumer'|localize}}
+        <th> {{'WaterConsumerType'|localize}}
+
         <th>{{'Type'|localize}}</th>
         <th>{{'Open'|localize}}</th>
       </tr>
@@ -21,6 +24,8 @@
         <td>{{ record.categoryName }}</td>
         <td>{{ record.waterBody.title }}</td>
         <td>{{ record.waterBody.waterBodyCodeAndType.waterBodyCode }} - {{ record.waterBody.waterBodyCodeAndType.waterBodyName }}</td>
+        <td>{{ record.waterConsumer.waterConsumerName }}</td>
+         <td>{{ record.waterConsumer.waterConsumerType }}</td>
         <td>
           <span :class="[record.typeClass]" class="white-text badge">{{ record.typeText }}</span>
         </td>

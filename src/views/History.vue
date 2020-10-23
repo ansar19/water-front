@@ -54,13 +54,14 @@ export default {
     this.records = await this.$store.dispatch('fetchRecords')
     const categoires = await this.$store.dispatch('fetchCategories')
     const waterIntakes = await this.$store.dispatch('fetchWaterIntakes')
+    const waterConsumers = await this.$store.dispatch('fetchWaterConsumers')
 
-    this.setup(categoires, waterIntakes)
+    this.setup(categoires, waterIntakes, waterConsumers)
     
     this.loading = false
   },
   methods: {
-    setup(categoires, waterIntakes) {
+    setup(categoires, waterIntakes, waterConsumers) {
       this.setupPagination(
         this.records.map(record => {
           return {
@@ -69,6 +70,7 @@ export default {
               .title,
             typeClass: record.type === 'income' ? 'green' : 'red',
             waterBody: waterIntakes.find(wi => wi.id === record.waterIntakeId),
+            waterConsumer: waterConsumers.find(wc => wc.id === record.waterConsumerId),
             typeText:
               record.type === 'income'
                 ? localizeFilter('Income')
