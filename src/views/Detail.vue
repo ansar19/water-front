@@ -22,6 +22,7 @@
               <p>{{'Description'|localize}}: {{record.description}}</p>
               <p>{{'Amount'|localize}}: {{record.amount }}</p>
               <p>{{'Category'|localize}}: {{record.categoryName}}</p>
+              <p>{{'WaterIntake'|localize}}: {{record.waterIntakeName}}</p>
 
               <small>{{record.date | date('datetime')}}</small>
             </div>
@@ -52,10 +53,15 @@ export default {
       'fetchCategoryById',
       record.categoryId
     )
+    const waterIntake = await this.$store.dispatch(
+      'fetchWaterIntakeById',
+      record.waterIntakeId
+    )
 
     this.record = {
       ...record,
-      categoryName: category.title
+      categoryName: category.title,
+      waterIntakeName: waterIntake.title
     }
 
     this.loading = false
