@@ -42,6 +42,9 @@ export default {
   data: () => ({
     title: '',
     waterBodyCodeAndType: {},
+    position: {
+      lat: '', lng: '', draggable: true, visible: true
+    },
     waterBodyCodeAndTypeOptions: [
         {
           waterBodyCode: "10",
@@ -150,10 +153,12 @@ export default {
       try {
         const waterIntake = await this.$store.dispatch('createWaterIntake', {
           title: this.title,
-          waterBodyCodeAndType: this.waterBodyCodeAndType
+          waterBodyCodeAndType: this.waterBodyCodeAndType,
+          position: this.position
         })
         this.title = ''
         this.waterBodyCodeAndType = {}
+        this.position = {}
         this.$v.$reset()
         this.$message(localizeFilter('Category_HasBeenCreated'))
         this.$emit('created', waterIntake)

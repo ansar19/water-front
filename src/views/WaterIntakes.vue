@@ -52,6 +52,7 @@ export default {
       const idx = this.waterIntakes.findIndex(wi => wi.id === waterIntake.id)
       this.waterIntakes[idx].title = waterIntake.title
       this.waterIntakes[idx].waterBodyCodeAndType = waterIntake.waterBodyCodeAndType
+      this.waterIntakes[idx].position = waterIntake.position
       this.updateCount++
     }
   }
