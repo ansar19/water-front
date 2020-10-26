@@ -32,51 +32,51 @@
         </div>
 
         <!-- Start Coordinates -->
-        <ul class="collapsible">
-          <li>
-            <div class="collapsible-header"><i class="material-icons">add_location_alt</i> {{'Coordinates' | localize }} </div>
-            <div class="collapsible-body">
 
-              <!-- <h6>Координаты</h6> -->
-              <table class="responsive-table">
-                <tr>
-                  <th>{{'Title' | localize }}</th>
-                  <th>{{'Latitude' | localize }}</th>
-                  <th>{{'Longitude' | localize }}</th>
-                </tr>
-                <tr v-for="item of waterIntakes" :key="item.id" :value="item.id">
-                  <td>
-                    {{item.title}}</td>
-                  <td>
-                    <input v-model.number="item.position.lat" type="number" step="any">
-                  </td>
-                  <td>
-                    <input v-model.number="item.position.lng" type="number" step="any">
-                  </td>
-                </tr>
-              </table>
-              <hr>
-              <l-map :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds" :min-zoom="minZoom"
-                :max-zoom="maxZoom" style="height: 500px; width: 100%">
-                <l-control-layers :position="layersPosition" />
-                <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name"
-                  :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution"
-                  :token="token" layer-type="base" />
-                <l-control-zoom :position="zoomPosition" />
-                <l-control-attribution :position="attributionPosition" :prefix="attributionPrefix" />
-                <l-control-scale :imperial="imperial" />
+        <div><i class="material-icons">add_location_alt</i> {{'Coordinates' | localize }} </div>
+        <hr>
+        <!-- <h6>Координаты</h6> -->
+        <table class="responsive-table">
+          <tr>
+            <th>{{'Title' | localize }}</th>
+            <th>{{'Latitude' | localize }}</th>
+            <th>{{'Longitude' | localize }}</th>
+          </tr>
+          <tr v-for="item of waterIntakes" :key="item.id" :value="item.id">
+            <td>
+              {{item.title}}</td>
+            <td>
+              <input v-model.number="item.position.lat" type="number" step="any">
+            </td>
+            <td>
+              <input v-model.number="item.position.lng" type="number" step="any">
+            </td>
+          </tr>
+        </table>
 
-                <l-marker v-for="marker in waterIntakes" :key="marker.id" :visible="true"
-                  :draggable="true" :lat-lng.sync="marker.position" :icon="marker.icon"  >
-                  <l-popup :content="marker.title" />
-                  <l-tooltip :content="marker.title" />
-                </l-marker>
+        <div id="example" style="height: 100%; overflow: auto;">
+          <l-map ref="myMap" :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds"
+            :min-zoom="minZoom" :max-zoom="maxZoom" style="height: 300px; width: 100%;" id="mymap">
+            <l-control-layers :position="layersPosition" />
+            <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name"
+              :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution"
+              :token="token" layer-type="base" />
+            <l-control-zoom :position="zoomPosition" />
+            <l-control-attribution :position="attributionPosition" :prefix="attributionPrefix" />
+            <l-control-scale :imperial="imperial" />
 
-              </l-map>
-              <!-- END Coordinates -->
-            </div>
-          </li>
-        </ul>
+            <l-marker v-for="marker in waterIntakes" :key="marker.id" :visible="true" :draggable="true"
+              :lat-lng.sync="marker.position" :icon="marker.icon">
+              <l-popup :content="marker.title" />
+              <l-tooltip :content="marker.title" />
+            </l-marker>
+
+          </l-map>
+        </div>
+        <!-- END Coordinates -->
+
+
+
         <button class="btn waves-effect waves-light" type="submit">
           {{'Update'|localize}}
           <i class="material-icons right">send</i>
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+
 import {
   required,
   minValue
@@ -249,7 +250,9 @@ export default {
     current: null,
     position: null,
     // related to map
-    center: [51.1605, 71.4704],
+    visible: true,
+    // center: [47.989921667414194, 68.73046875000001], 
+    center: L.latLng(47.989921667414194, 68.73046875000001),
     opacity: 0.6,
     token: 'your token if using mapbox',
     mapOptions: {
@@ -267,12 +270,12 @@ export default {
     imperial: false,
     tileProviders: tileProviders,
     bounds: latLngBounds({
-        lat: 47.1166687,
-        lng: 51.8833313
+        lat: 47.517200697839414,
+        lng: 49.21875000000001
       }, // Atyrau coordinates - _southWest
       {
-        lat: 49.9714317,
-        lng: 82.6058578
+        lat: 48.50204750525715,
+        lng: 85.47363281250001
       }, // Oskemen coordinates - _northEast
     ),
   }),
@@ -329,6 +332,7 @@ export default {
         this.$emit('updated', waterIntakeData)
       } catch (e) {}
     },
+
   },
   // TO-DO update for dynamic waterIntakes id
   computed: {
@@ -337,20 +341,14 @@ export default {
     },
     getNewLng() {
       return this.waterIntakes[0].position.lng
-    }
+    },
   },
   mounted() {
     this.waterBodyCodeAndType = M.FormSelect.init(this.$refs.waterBodyCodeAndType)
     this.select = M.FormSelect.init(this.$refs.select)
     this.selectContol = M.FormSelect.init(this.$refs.selectContol)
 
-    // materializecss Collapsible init
-    var elems = document.querySelectorAll('.collapsible');
-    var instances = M.Collapsible.init(elems, {
-      accordion: true,
-    });
-
-    M.updateTextFields()
+    M.updateTextFields();
   },
   destroyed() {
     if (this.waterBodyCodeAndType && this.waterBodyCodeAndType.destroy) {
