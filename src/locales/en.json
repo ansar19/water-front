@@ -105,5 +105,13 @@
   "Error": "Error",
   "Latitude": "Latitude",
   "Longitude": "Longitude",
-  "Coordinates": "Coordinates"
+  "Coordinates": "Coordinates",
+  "GUIV_Code": "GUIV Code",
+  "GUIV_Code_Helper_Text": "(Code for GUIV - Code of state accounting for water use)",
+  "Water_Quality_Type_Code": "Water Quality Code",
+  "Distance_From_Estuary": "Distance From Estuary",
+  "KM": "kilometer",
+  "M3": "m3"
+
+
 }

@@ -24,6 +24,18 @@
             class="helper-text invalid">{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
+        <div class="input-field">
+            <label for="guiv-code">{{'GUIV_Code' | localize }}</label>
+            <input id="guiv-code" v-model="guivCode" type="text" class="form-control" />
+            <small id="guiv-code-help" class="form-text text-muted">{{'GUIV_Code_Helper_Text' | localize}}</small>
+        </div>
+
+        <div class="input-field">
+          <label for="distance-from-estuary">Расстояние от устья</label>
+          <input id="distance-from-estuary" v-model="distanceFromEstuary" type="text" class="form-control" />
+          <small id="distance-from-estuary-help" class="form-text text-muted">({{'KM' | localize}})</small>
+        </div>
+
         <button class="btn waves-effect waves-light" type="submit">
           {{'Create'|localize}}
           <i class="material-icons right">send</i>
@@ -131,6 +143,8 @@ export default {
           waterBodyName: "Сеть водоотведения"
         }
       ],
+    guivCode: 'kz64sd',
+    distanceFromEstuary: ''
   }),
   validations: {
     title: { required },
@@ -154,11 +168,15 @@ export default {
         const waterIntake = await this.$store.dispatch('createWaterIntake', {
           title: this.title,
           waterBodyCodeAndType: this.waterBodyCodeAndType,
-          position: this.position
+          position: this.position,
+          guivCode: this.guivCode,
+          distanceFromEstuary: this.distanceFromEstuary
         })
         this.title = ''
         this.waterBodyCodeAndType = {}
         this.position = {}
+        this.guivCode = ''
+        this.distanceFromEstuary = ''
         this.$v.$reset()
         this.$message(localizeFilter('Category_HasBeenCreated'))
         this.$emit('created', waterIntake)

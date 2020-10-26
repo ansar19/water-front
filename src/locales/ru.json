@@ -106,5 +106,13 @@
   "Error": "Ошибка",
   "Latitude": "Широта",
   "Longitude": "Долгота",
-  "Coordinates": "Координаты"
+  "Coordinates": "Координаты",
+  "GUIV_Code": "Код источника ГУИВ",
+  "GUIV_Code_Helper_Text": "(Код по ГУИВ - Код государственного учета использования воды)",
+  "Water_Quality_Type_Code": "Код качества воды",
+  "Distance_From_Estuary": "Расстояние от устья",
+  "KM": "километр",
+  "M3": "м3"
+
+
 }

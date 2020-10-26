@@ -22,20 +22,20 @@ export default {
         throw e
       }
     },
-    async updateCategory({commit, dispatch}, {title, limit, id}) {
+    async updateCategory({commit, dispatch}, {title, code, limit, id}) {
       try {
         const uid = await dispatch('getUid')
-        await firebase.database().ref(`/users/${uid}/categories`).child(id).update({title, limit})
+        await firebase.database().ref(`/users/${uid}/categories`).child(id).update({title, code, limit})
       } catch (e) {
         commit('setError', e)
         throw e
       }
     },
-    async createCategory({commit, dispatch}, {title, limit}) {
+    async createCategory({commit, dispatch}, {title, code, limit}) {
       try {
         const uid = await dispatch('getUid')
-        const category = await firebase.database().ref(`/users/${uid}/categories`).push({title, limit})
-        return {title, limit, id: category.key}
+        const category = await firebase.database().ref(`/users/${uid}/categories`).push({title, code, limit})
+        return {title, limit, code, id: category.key}
       } catch (e) {
         commit('setError', e)
         throw e

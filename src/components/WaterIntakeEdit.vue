@@ -31,19 +31,30 @@
             class="helper-text invalid">{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
-        <!-- Start Coordinates -->
+        <div class="input-field">
+          <label for="guiv-code">{{'GUIV_Code' | localize }}</label>
+          <input id="guiv-code" v-model="guivCode" type="text" class="form-control" />
+          <small id="guiv-code-help" class="form-text text-muted">{{'GUIV_Code_Helper_Text' | localize}}</small>
+        </div>
 
+        <div class="input-field">
+          <label for="distance-from-estuary">{{ 'Distance_From_Estuary' | localize }}</label>
+          <input id="distance-from-estuary" v-model="distanceFromEstuary" type="text" class="form-control" />
+          <small id="distance-from-estuary-help" class="form-text text-muted">({{'KM' | localize}})</small>
+        </div>
+
+        <!-- Start Coordinates -->
         <div><i class="material-icons">add_location_alt</i> {{'Coordinates' | localize }} </div>
         <hr>
         <!-- <h6>Координаты</h6> -->
-        <table class="responsive-table">
+        <table class="responsive-table meta-table">
           <tr>
             <th>{{'Title' | localize }}</th>
             <th>{{'Latitude' | localize }}</th>
             <th>{{'Longitude' | localize }}</th>
           </tr>
           <tr v-for="item of waterIntakes" :key="item.id" :value="item.id">
-            <td>
+            <td data-label="Title">
               {{item.title}}</td>
             <td>
               <input v-model.number="item.position.lat" type="number" step="any">
@@ -73,10 +84,8 @@
 
           </l-map>
         </div>
+        <hr>
         <!-- END Coordinates -->
-
-
-
         <button class="btn waves-effect waves-light" type="submit">
           {{'Update'|localize}}
           <i class="material-icons right">send</i>
@@ -249,6 +258,8 @@ export default {
     ],
     current: null,
     position: null,
+    guivCode: null,
+    distanceFromEstuary: null,
     // related to map
     visible: true,
     // center: [47.989921667414194, 68.73046875000001], 
@@ -292,11 +303,16 @@ export default {
       const {
         title,
         waterBodyCodeAndType,
-        position
+
+        position,
+        guivCode,
+        distanceFromEstuary
       } = this.waterIntakes.find(wi => wi.id === wiId)
       this.title = title
       this.waterBodyCodeAndType = waterBodyCodeAndType
       this.position = position
+      this.guivCode = guivCode,
+      this.distanceFromEstuary = distanceFromEstuary
     },
   },
   created() {
@@ -304,12 +320,16 @@ export default {
       id,
       title,
       waterBodyCodeAndType,
-      position
+      position,
+      guivCode,
+      distanceFromEstuary
     } = this.waterIntakes[0]
     this.current = id
     this.title = title
     this.waterBodyCodeAndType = waterBodyCodeAndType
     this.position = position
+    this.guivCode = guivCode
+    this.distanceFromEstuary = distanceFromEstuary
   },
   methods: {
     async submitHandler() {
@@ -324,6 +344,8 @@ export default {
           title: this.title,
           waterBodyCodeAndType: this.waterBodyCodeAndType,
           position: { lat: this.getNewLat, lng: this.getNewLng, draggable: true, visible: true },
+          guivCode: this.guivCode,
+          distanceFromEstuary: this.distanceFromEstuary
 
         }
 

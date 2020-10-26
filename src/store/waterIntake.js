@@ -22,20 +22,20 @@ export default {
         throw e
       }
     },
-    async updateWaterIntake({commit, dispatch}, {title, waterBodyCodeAndType, position, id}) {
+    async updateWaterIntake({commit, dispatch}, {title, waterBodyCodeAndType, position, guivCode, distanceFromEstuary, id}) {
       try {
         const uid = await dispatch('getUid')
-        await firebase.database().ref(`/users/${uid}/waterintakes`).child(id).update({title, waterBodyCodeAndType, position})
+        await firebase.database().ref(`/users/${uid}/waterintakes`).child(id).update({title, waterBodyCodeAndType, position, guivCode, distanceFromEstuary })
       } catch (e) {
         commit('setError', e)
         throw e
       }
     },
-    async createWaterIntake({commit, dispatch}, {title, waterBodyCodeAndType, position}) {
+    async createWaterIntake({commit, dispatch}, {title, waterBodyCodeAndType, position, guivCode, distanceFromEstuary }) {
       try {
         const uid = await dispatch('getUid')
-        const waterIntake = await firebase.database().ref(`/users/${uid}/waterintakes`).push({title, waterBodyCodeAndType, position})
-        return {title, waterBodyCodeAndType, position, id: waterIntake.key}
+        const waterIntake = await firebase.database().ref(`/users/${uid}/waterintakes`).push({title, waterBodyCodeAndType, position, guivCode, distanceFromEstuary })
+        return {title, waterBodyCodeAndType, position, guivCode, id: waterIntake.key}
       } catch (e) {
         commit('setError', e)
         throw e

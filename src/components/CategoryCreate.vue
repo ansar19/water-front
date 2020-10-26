@@ -20,6 +20,21 @@
           >{{'Message_CategoryTitle'|localize}}</span>
         </div>
 
+
+        <div class="input-field">
+          <input
+            id="name"
+            type="text"
+            v-model="code"
+            :class="{invalid: $v.code.$dirty && !$v.code.required}"
+          >
+          <label for="name">{{'Water_Quality_Type_Code'|localize}}</label>
+          <span
+            v-if="$v.code.$dirty && !$v.code.required"
+            class="helper-text invalid"
+          >{{'Water_Quality_Type_Code'|localize}}</span>
+        </div>
+
         <div class="input-field">
           <input
             id="limit"
@@ -50,14 +65,20 @@ import localizeFilter from '@/filters/localize.filter'
 export default {
   data: () => ({
     title: '',
+    code: '',
     limit: 100
   }),
   validations: {
     title: { required },
+    code: { required },
     limit: { minValue: minValue(100) }
   },
   mounted() {
-    M.updateTextFields()
+    // M.updateTextFields(),
+    // setTimeout(() => {
+    //   this.waterQualityType = M.FormSelect.init(this.$refs.waterQualityType)
+    //   M.updateTextFields()
+    // }, 0)
   },
   methods: {
     async submitHandler() {
@@ -69,15 +90,22 @@ export default {
       try {
         const category = await this.$store.dispatch('createCategory', {
           title: this.title,
+          code: this.code,
           limit: this.limit
         })
         this.title = ''
+        this.code = ''
         this.limit = 100
         this.$v.$reset()
         this.$message(localizeFilter('Category_HasBeenCreated'))
         this.$emit('created', category)
       } catch (e) {}
     }
+  },
+  destroyed() {
+    // if (this.waterQualityType && this.waterQualityType.destroy) {
+    //   this.waterQualityType.destroy()
+    // }
   }
 }
 </script>

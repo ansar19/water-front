@@ -68,6 +68,8 @@ export default {
             ...record,
             categoryName: categoires.find(c => c.id === record.categoryId)
               .title,
+            categoryCode: categoires.find(c => c.id === record.categoryId)
+              .code,
             typeClass: record.type === 'income' ? 'green' : 'red',
             waterBody: waterIntakes.find(wi => wi.id === record.waterIntakeId),
             waterConsumer: waterConsumers.find(wc => wc.id === record.waterConsumerId),

@@ -29,6 +29,21 @@
 
         <div class="input-field">
           <input
+            id="name"
+            type="text"
+            v-model="code"
+            :class="{invalid: $v.code.$dirty && !$v.code.required}"
+          >
+          <label for="name">{{'Water_Quality_Type_Code'|localize}}</label>
+          <span
+            v-if="$v.code.$dirty && !$v.code.required"
+            class="helper-text invalid"
+          >{{'Water_Quality_Type_Code'|localize}}</span>
+        </div>
+
+
+        <div class="input-field">
+          <input
             id="limit"
             type="number"
             v-model.number="limit"
@@ -63,24 +78,74 @@ export default {
   data: () => ({
     select: null,
     title: '',
+    code: '',
+    waterQualityTypeOptions: [
+        {
+          waterTypeCode: "БЛ",
+          waterTypeName: "Вода балластная, льяльная"
+        },
+        {
+          waterTypeCode: "ВП",
+          waterTypeName: "Вода питьевая"
+        },
+        {
+          waterTypeCode: "ВТ",
+          waterTypeName: "Вода техническая"
+        },
+        {
+          waterTypeCode: "ВС",
+          waterTypeName: "Вода сточная"
+        },
+        {
+          waterTypeCode: "ГП",
+          waterTypeName: "Вода подземная питьевая"
+        },
+        {
+          waterTypeCode: "ГТ",
+          waterTypeName: "Вода подземная техническая"
+        },
+        {
+          waterTypeCode: "КД",
+          waterTypeName: "Вода коллекторно-дренажная"
+        },
+        {
+          waterTypeCode: "МР",
+          waterTypeName: "Вода морская"
+        },
+        {
+          waterTypeCode: "РС",
+          waterTypeName: "Вода с рисовых систем"
+        },
+        {
+          waterTypeCode: "ШР",
+          waterTypeName: "Вода шахтно-рудничная"
+        },
+        {
+          waterTypeCode: "ТР",
+          waterTypeName: "Вода транзитная"
+        }
+    ],
     limit: 100,
     current: null
   }),
   validations: {
     title: { required },
-    limit: { minValue: minValue(100) }
+    code: { required },
+    limit: { minValue: minValue(50) }
   },
   watch: {
     current(catId) {
-      const { title, limit } = this.categories.find(c => c.id === catId)
+      const { title, code, limit } = this.categories.find(c => c.id === catId)
       this.title = title
+      this.code = code
       this.limit = limit
     }
   },
   created() {
-    const { id, title, limit } = this.categories[0]
+    const { id, title, code, limit } = this.categories[0]
     this.current = id
     this.title = title
+    this.code = code
     this.limit = limit
   },
   methods: {
@@ -94,6 +159,7 @@ export default {
         const categoryData = {
           id: this.current,
           title: this.title,
+          code: this.code,
           limit: this.limit
         }
         await this.$store.dispatch('updateCategory', categoryData)
