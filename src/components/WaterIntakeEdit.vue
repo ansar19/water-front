@@ -31,10 +31,23 @@
             class="helper-text invalid">{{'Message_WaterIntakeTitle'|localize}}</span>
         </div>
 
+         <div class="input-field">
+          <label for="water-intake-number">{{ 'Water_Intake_Number' | localize }}</label>
+          <input id="water-intake-number" v-model="waterIntakeNumber" type="text" class="form-control" />
+          <small id="water-intake-number" class="form-text text-muted">({{ 'Water_Discharge_Point' | localize }})</small>
+        </div>
+
         <div class="input-field">
           <label for="guiv-code">{{'GUIV_Code' | localize }}</label>
           <input id="guiv-code" v-model="guivCode" type="text" class="form-control" />
           <small id="guiv-code-help" class="form-text text-muted">{{'GUIV_Code_Helper_Text' | localize}}</small>
+        </div>
+
+        <div class="input-field">
+             <label for="sea-river-code">{{'Sea_River_Code' | localize }}</label>
+             <input id="sea-river-code" v-model="seaRiverCode" type="text" class="form-control" />
+             <small id="sea-river-code-help" class="form-text text-muted"></small>
+             <span> </span>
         </div>
 
         <div class="input-field">
@@ -43,8 +56,116 @@
           <small id="distance-from-estuary-help" class="form-text text-muted">({{'KM' | localize}})</small>
         </div>
 
+        <!--    Притоки         -->
+        <div class="">
+          <h6>{{ 'Feeders' | localize }}</h6>
+          <table class="table table-bordered mt-4">
+            <thead class="thead-light">
+              <tr>
+                <th>#</th>
+                <th>{{ 'Code' | localize }}</th>
+                <th>{{ 'Title' | localize }}</th>
+                <th>{{ 'Description' | localize }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in feederItems" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>
+                  <span v-if="editFeederIndex !== index">{{
+                    item.feederCode
+                  }}</span>
+                  <span v-if="editFeederIndex === index">
+                    <input
+                      class="form-control form-control-sm"
+                      v-model="item.feederCode"
+                    />
+                  </span>
+                </td>
+                <td>
+                  <span v-if="editFeederIndex !== index">{{
+                    item.feederName
+                  }}</span>
+                  <span v-if="editFeederIndex === index">
+                    <input
+                      class="form-control form-control-sm"
+                      v-model="item.feederName"
+                    />
+                  </span>
+                </td>
+                <td>
+                  <span v-if="editFeederIndex !== index">{{
+                    item.feederDescription
+                  }}</span>
+                  <span v-if="editFeederIndex === index">
+                    <input
+                      class="form-control form-control-sm"
+                      v-model="item.feederDescription"
+                    />
+                  </span>
+                </td>
+                <td>
+                  <span v-if="editFeederIndex !== index">
+                    <button
+                      @click.prevent="edit(item, index)"
+                      class="btn btn-small btn-outline-warning waves-effect waves-light orange"
+                    >
+                      <i class="material-icons">edit</i>
+                    </button>
+                    <button
+                      @click.prevent="remove(item, index)"
+                      class="btn btn-small btn-outline-danger waves-effect waves-light red"
+                    >
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </span>
+                  <span v-else>
+                    <button
+                      class="btn btn-small btn-outline-secondary waves-effect waves-light grey"
+                      @click.prevent="cancel(item)"
+                    >
+                      <i class="material-icons">cancel</i>
+                    </button>
+                    <button
+                      class="btn btn-small btn-outline-success waves-effect waves-light"
+                      @click.prevent="save(item)"
+                    >
+                      <i class="material-icons">save</i>
+                    </button>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--     END Притоки        -->
+
+        <!-- to-do Прибор водоучета -->
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header" @click="toggle"><i class="material-icons">network_check</i>{{ 'Water_Meter' | localize }}</div>
+           <div class="card" v-show="showSection">
+             <div class="card-content">
+              <div class="input-field">
+                <label for="water-meter-brand">{{ 'Water_Meter_Brand' | localize }}</label>
+                <textarea id="water-meter-brand" v-model="waterMeterBrand" class="materialize-textarea"></textarea>
+                <small id="water-meter-brand-help" class="form-text text-muted helper-text">{{'Indicate_Water_Meter_Brand' | localize}}</small>
+              </div>
+
+              <div class="input-field">
+                <label for="last-verification-date">{{ 'Last_Verification_Date' | localize }}</label>
+                <input id="last-verification-date" v-model="lastVerificationDate" type="date" placeholder="Date"  class="datepicker" />
+                <small id="last-verification-date-help" class="form-text text-muted"></small>
+              </div>
+            </div>
+           </div>
+        </li>
+      </ul>
+     <!-- END  Прибор водоучета -->
+
         <!-- Start Coordinates -->
-        <div><i class="material-icons">add_location_alt</i> {{'Coordinates' | localize }} </div>
+        <div class="section"><i class="material-icons">add_location_alt</i> {{'Coordinates' | localize }} </div>
         <hr>
         <!-- <h6>Координаты</h6> -->
         <table class="responsive-table meta-table">
@@ -258,8 +379,17 @@ export default {
     ],
     current: null,
     position: null,
+    waterIntakeNumber: null,
     guivCode: null,
+    seaRiverCode: null,
     distanceFromEstuary: null,
+    editFeederIndex: null, // Start притоки
+    originalFeederData: null,
+    feederItems: [ ],
+    // end притоки
+    showSection: true,
+    waterMeterBrand: null,
+    lastVerificationDate: null,
     // related to map
     visible: true,
     // center: [47.989921667414194, 68.73046875000001], 
@@ -303,16 +433,25 @@ export default {
       const {
         title,
         waterBodyCodeAndType,
-
         position,
+        waterIntakeNumber,
         guivCode,
-        distanceFromEstuary
+        seaRiverCode,
+        distanceFromEstuary,
+        feederItems,
+        waterMeterBrand,
+        lastVerificationDate
       } = this.waterIntakes.find(wi => wi.id === wiId)
       this.title = title
       this.waterBodyCodeAndType = waterBodyCodeAndType
       this.position = position
+      this.waterIntakeNumber = waterIntakeNumber
       this.guivCode = guivCode,
+      this.seaRiverCode = seaRiverCode,
       this.distanceFromEstuary = distanceFromEstuary
+      this.feederItems = feederItems,
+      this.waterMeterBrand = waterMeterBrand,
+      this.lastVerificationDate = lastVerificationDate
     },
   },
   created() {
@@ -321,15 +460,25 @@ export default {
       title,
       waterBodyCodeAndType,
       position,
+      waterIntakeNumber,
       guivCode,
-      distanceFromEstuary
+      seaRiverCode,
+      distanceFromEstuary,
+      feederItems,
+      waterMeterBrand,
+      lastVerificationDate
     } = this.waterIntakes[0]
     this.current = id
     this.title = title
     this.waterBodyCodeAndType = waterBodyCodeAndType
     this.position = position
+    this.waterIntakeNumber = waterIntakeNumber
     this.guivCode = guivCode
+    this.seaRiverCode = seaRiverCode
     this.distanceFromEstuary = distanceFromEstuary
+    this.feederItems = feederItems,
+    this.waterMeterBrand = waterMeterBrand,
+    this.lastVerificationDate = lastVerificationDate
   },
   methods: {
     async submitHandler() {
@@ -344,17 +493,51 @@ export default {
           title: this.title,
           waterBodyCodeAndType: this.waterBodyCodeAndType,
           position: { lat: this.getNewLat, lng: this.getNewLng, draggable: true, visible: true },
+          waterIntakeNumber: this.waterIntakeNumber,
           guivCode: this.guivCode,
-          distanceFromEstuary: this.distanceFromEstuary
-
+          seaRiverCode: this.seaRiverCode,
+          distanceFromEstuary: this.distanceFromEstuary,
+          feederItems: this.feederItems,
+          waterMeterBrand: this.waterMeterBrand,
+          lastVerificationDate: this.lastVerificationDate
         }
-
         await this.$store.dispatch('updateWaterIntake', waterIntakeData)
         this.$message(localizeFilter('WaterIntake_HasBeenUpdated'))
         this.$emit('updated', waterIntakeData)
       } catch (e) {}
     },
-
+    add() {
+      this.originalFeederData = null
+      this.feederItems.push({
+        feederCode: '',
+        feederName: '',
+        feederDescription: '',
+      })
+      this.editFeederIndex = this.feederItems.length - 1
+    },
+    edit(item, index) {
+      this.originalFeederData = Object.assign({}, item)
+      this.editFeederIndex = index
+    },
+    cancel(item) {
+      this.editFeederIndex = null
+      if (!this.originalFeederData) {
+        this.feederItems.splice(this.feederItems.indexOf(item), 1)
+        return
+      }
+      Object.assign(item, this.originalFeederData)
+      this.originalFeederData = null
+    },
+    remove(item, index) {
+      this.feederItems.splice(index, 1)
+    },
+    save(item) {
+      this.originalFeederData = null
+      this.editFeederIndex = null
+    },
+    toggle() {
+      this.showSection = !this.showSection;
+    },
   },
   // TO-DO update for dynamic waterIntakes id
   computed: {

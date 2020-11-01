@@ -12,6 +12,8 @@
   "Copy": "Скопировать",
   "Update": "Обновить",
   "Create": "Создать",
+  "Delete": "Удалить",
+  "Cancel": "Отменить",
   "Bill": "Счет",
   "Name": "Имя",
   "Company_Name": "Наименование компании",
@@ -112,7 +114,15 @@
   "Water_Quality_Type_Code": "Код качества воды",
   "Distance_From_Estuary": "Расстояние от устья",
   "KM": "километр",
-  "M3": "м3"
-
+  "M3": "м3",
+  "Code": "Код",
+  "Feeders": "Притоки",
+  "Sea_River_Code":"Код моря-реки",
+  "Water_Intake_Number":"Номер водозабора",
+  "Water_Discharge_Point": "водосброса",
+  "Water_Meter": "Прибор водоучета",
+  "Water_Meter_Brand": "Марка прибора водоучета",
+  "Indicate_Water_Meter_Brand": "Укажите марку прибора",
+  "Last_Verification_Date": "Дата последней поверки приборов водоучета"
 
 }

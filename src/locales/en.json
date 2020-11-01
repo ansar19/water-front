@@ -12,6 +12,8 @@
   "Create": "Create",
   "Save": "Save",
   "Copy": "Copy",
+  "Delete": "Delete",
+  "Cancel": "Cancel",
   "Bill": "Bill",
   "Name": "Name",
   "Company_Name": "Company Name",
@@ -111,7 +113,15 @@
   "Water_Quality_Type_Code": "Water Quality Code",
   "Distance_From_Estuary": "Distance From Estuary",
   "KM": "kilometer",
-  "M3": "m3"
-
+  "M3": "m3",
+  "Code": "Code",
+  "Feeders": "Feeders",
+  "Sea_River_Code":"Sea - River Code",
+  "Water_Intake_Number":"Water Intake #",
+  "Water_Discharge_Point": "Water Discharge Point",
+  "Water_Meter": "Water Meter",
+  "Water_Meter_Brand": "Water Meter Brand",
+  "Indicate_Water_Meter_Brand": "Indicate Water Meter Brand",
+  "Last_Verification_Date": "Last Verification Date"
 
 }
