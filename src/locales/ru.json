@@ -8,6 +8,7 @@
   "Message_Enter_Company_Head": "ФИО Руководителя предприятия должно содержать минимум следующее количество букв: ",
   "Message_Enter_Company_Phone": "Введите телефонный номер компании начиная с +7",
   "Message_Enter_Company_Email": "Введите email компании в правильном формате",
+  "Add": "Добавить",
   "Save": "Сохранить",
   "Copy": "Скопировать",
   "Update": "Обновить",
@@ -123,6 +124,16 @@
   "Water_Meter": "Прибор водоучета",
   "Water_Meter_Brand": "Марка прибора водоучета",
   "Indicate_Water_Meter_Brand": "Укажите марку прибора",
-  "Last_Verification_Date": "Дата последней поверки приборов водоучета"
+  "Last_Verification_Date": "Дата последней поверки приборов водоучета",
+  "Document_Details": "Реквизиты документа ",
+  "Document_Details_Comments": "в соответствии с которым предоставлено право на забор (изъятие) водных ресурсов",
+  "Limit_Type": "Тип лимита",
+  "Water_Established_Volume": "Установленный объем водозабора (сброса),",
+  "Water_Established_Volume_Comment": "(тыс. м3 - В разрешении на специальное водопользование)",
+  "Limits_Yearly_Break": "Лимиты по годам",
+  "Limit_Year": "Год лимита",
+  "Yearly_Water_Limit_Volume": "Годовой лимит тыс. м3"
+
+
 
 }

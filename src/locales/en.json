@@ -8,6 +8,7 @@
   "Message_Enter_Company_Head": "The full name of the head of the enterprise must contain at least the following number of letters: ",
   "Message_Enter_Company_Phone": "Enter the company phone number starting from +7",
   "Message_Enter_Company_Email": "Enter your company email in the correct format",
+  "Add": "Add",
   "Update": "Update",
   "Create": "Create",
   "Save": "Save",
@@ -122,6 +123,15 @@
   "Water_Meter": "Water Meter",
   "Water_Meter_Brand": "Water Meter Brand",
   "Indicate_Water_Meter_Brand": "Indicate Water Meter Brand",
-  "Last_Verification_Date": "Last Verification Date"
+  "Last_Verification_Date": "Last Verification Date",
+  "Document_Details": "Document Details ",
+  "Document_Details_Comments": "according to which the right to take (withdraw) water resources is granted",
+  "Limit_Type": "Limit Type",
+  "Water_Established_Volume": "The established volume of water intake (discharge),",
+  "Water_Established_Volume_Comment": "(thousand m3 - In the permit for special water use)",
+  "Limits_Yearly_Break": "Limits Yearly Break",
+  "Limit_Year": "Limit Year",
+  "Yearly_Water_Limit_Volume": "Annual limit thous. m3"
+
 
 }
