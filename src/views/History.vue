@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div >
     <div class="page-title">
       <h3>{{'History_Title'|localize}}</h3>
     </div>
 
-    <div class="history-chart">
-      <canvas ref="canvas"></canvas>
+    <div class="row">
+      <div class="history-chart" style="text-align: center;">
+        <canvas ref="canvas"></canvas>
+      </div>
     </div>
 
     <Loader v-if="loading"/>
@@ -16,7 +18,7 @@
     </p>
 
     <section v-else>
-      <HistoryTable :records="items"/>
+      <!-- <HistoryTable :records="items"/>
 
       <Paginate
         v-model="page"
@@ -26,14 +28,18 @@
         :next-text="'Forward' | localize"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
-      />
+      /> -->
+
+      <LogBookTable :records="items"/>
+
     </section>
   </div>
 </template>
 
 <script>
 import paginationMixin from '@/mixins/pagination.mixin'
-import HistoryTable from '@/components/HistoryTable'
+// import HistoryTable from '@/components/HistoryTable'
+import LogBookTable from '@/components/LogBookTable'
 import { Pie } from 'vue-chartjs'
 import localizeFilter from '@/filters/localize.filter'
 
@@ -139,7 +145,8 @@ export default {
     }
   },
   components: {
-    HistoryTable
+    // HistoryTable,
+    LogBookTable
   }
 }
 </script>
