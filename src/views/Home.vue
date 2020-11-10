@@ -18,7 +18,7 @@
       <Loader v-if="loading" />
 
       <div v-else>
-        <HomeBill :rates="currency.rates" style="text-align: center" />
+        <!-- <HomeBill :rates="currency.rates" style="text-align: center" /> -->
 
         <!-- <HomeCurrency :rates="currency.rates" :date="currency.date"/> -->
       </div>
@@ -48,7 +48,7 @@ export default {
     records: [],
   }),
   async mounted() {
-    this.currency = await this.$store.dispatch('fetchCurrency')
+    // this.currency = await this.$store.dispatch('fetchCurrency')
 
     this.records = await this.$store.dispatch('fetchRecords')
     const categoires = await this.$store.dispatch('fetchCategories')
@@ -62,7 +62,13 @@ export default {
   methods: {
     async refresh() {
       this.loading = true
-      this.currency = await this.$store.dispatch('fetchCurrency')
+      this.records = await this.$store.dispatch('fetchRecords')
+      const categoires = await this.$store.dispatch('fetchCategories')
+      const waterIntakes = await this.$store.dispatch('fetchWaterIntakes')
+      const waterConsumers = await this.$store.dispatch('fetchWaterConsumers')
+
+      this.setup(categoires, waterIntakes, waterConsumers)
+      // this.currency = await this.$store.dispatch('fetchCurrency')
       this.loading = false
     },
     setup(categoires, waterIntakes, waterConsumers) {
