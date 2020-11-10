@@ -4,12 +4,6 @@
       <h3>{{'History_Title'|localize}}</h3>
     </div>
 
-    <div class="row">
-      <div class="history-chart" style="text-align: center;">
-        <canvas ref="canvas"></canvas>
-      </div>
-    </div>
-
     <Loader v-if="loading"/>
 
     <p class="center" v-else-if="!records.length">
@@ -18,9 +12,8 @@
     </p>
 
     <section v-else>
-      <!-- <HistoryTable :records="items"/>
 
-      <Paginate
+      <!-- <Paginate
         v-model="page"
         :page-count="pageCount"
         :click-handler="pageChangeHandler"
@@ -28,9 +21,9 @@
         :next-text="'Forward' | localize"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
-      /> -->
+      /> --> 
 
-      <LogBookTable :records="items"/>
+      <LogBookTable :records="items" style="text-align: center;" />
 
     </section>
   </div>
@@ -87,65 +80,9 @@ export default {
         })
       )
 
-      this.renderChart({
-        labels: categoires.map(c => c.title),
-        datasets: [
-          {
-            label: localizeFilter('CostsForCategories'),
-            data: categoires.map(c => {
-              return this.records.reduce((total, r) => {
-                if (r.categoryId === c.id && r.type === 'outcome') {
-                  total += +r.amount
-                }
-                return total
-              }, 0)
-            }),
-            backgroundColor: [
-              '#f44336',
-              '#9e9e9e',
-              '#e91e63',
-              '#9c27b0',
-              '#673ab7',
-              '#3f51b5',
-              '#2196f3',
-              '#03a9f4',
-              '#00bcd4',
-              '#009688',
-              '#4caf50',
-              '#ffeb3b',
-              '#ffc107',
-              '#ff9800',
-              '#ff5722',
-              '#795548',
-              '#607d8b'
-            ],
-            borderColor: [
-              '#f44336',
-              '#9e9e9e',
-              '#e91e63',
-              '#9c27b0',
-              '#673ab7',
-              '#3f51b5',
-              '#2196f3',
-              '#03a9f4',
-              '#00bcd4',
-              '#009688',
-              '#4caf50',
-              '#ffeb3b',
-              '#ffc107',
-              '#ff9800',
-              '#ff5722',
-              '#795548',
-              '#607d8b'
-            ],
-            borderWidth: 1
-          }
-        ]
-      })
     }
   },
   components: {
-    // HistoryTable,
     LogBookTable
   }
 }
