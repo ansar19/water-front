@@ -114,7 +114,7 @@ export default {
               '#ff9800',
               '#ff5722',
               '#795548',
-              '#607d8b',
+              '#607d8b'
             ],
             borderColor: [
               '#f44336',
@@ -133,7 +133,7 @@ export default {
               '#ff9800',
               '#ff5722',
               '#795548',
-              '#607d8b',
+              '#607d8b'
             ],
             borderWidth: 1,
           },
