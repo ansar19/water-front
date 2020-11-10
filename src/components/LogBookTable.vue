@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="meta-table">
     <vue-good-table :columns="columns" :rows="records" :search-options="{ enabled: true, placeholder: 'Введите текст для поиска' }" :pagination-options="paginationOptions">
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field == 'action'">
@@ -136,3 +136,7 @@ export default {
   }
 }
 </script>
+
+<style >
+    @import '../assets/meta-table.scss';
+</style>
