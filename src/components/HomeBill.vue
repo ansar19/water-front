@@ -2,10 +2,10 @@
   <div class="col s12 m6 l4">
     <div class="card light-blue bill-card">
       <div class="card-content white-text">
-        <span class="card-title">{{'BillInCurrency'|localize}}</span>
+        <span class="card-title">{{'BillInSystem'|localize}}</span>
 
         <p v-for="cur of currencies" :key="cur" class="currency-line">
-          <span>{{ getCurrency(cur) | currency(cur) }}</span>
+          <span>{{ getCurrency(cur)  }}  м³</span>
         </p>
       </div>
     </div>
@@ -16,12 +16,16 @@
 export default {
   props: ['rates'],
   data: () => ({
-    currencies: ['RUB', 'USD', 'EUR']
+    currencies: ['RUB']
+    // currencies: ['RUB', 'USD', 'EUR']
+
   }),
   computed: {
     base() {
       return (
-        this.$store.getters.info.bill / (this.rates['RUB'] / this.rates['EUR'])
+        this.$store.getters.info.bill / (this.rates['RUB'] )
+        // this.$store.getters.info.bill / (this.rates['RUB'] / this.rates['EUR'])
+
       )
     }
   },

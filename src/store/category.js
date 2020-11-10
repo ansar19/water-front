@@ -22,10 +22,10 @@ export default {
         throw e
       }
     },
-    async updateCategory({commit, dispatch}, {title, code, limit, waterPermitName, yearlyWaterLimits, totalWaterPermitLimit, id}) {
+    async updateCategory({commit, dispatch}, {title, code, limit, waterPermitName, limitType, yearlyWaterLimits, totalWaterPermitLimit, id}) {
       try {
         const uid = await dispatch('getUid')
-        await firebase.database().ref(`/users/${uid}/categories`).child(id).update({title, code, limit, waterPermitName, yearlyWaterLimits, totalWaterPermitLimit })
+        await firebase.database().ref(`/users/${uid}/categories`).child(id).update({title, code, limit, waterPermitName, limitType, yearlyWaterLimits, totalWaterPermitLimit })
       } catch (e) {
         commit('setError', e)
         throw e
